@@ -2,9 +2,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-  schedule:
-    - cron: '0 0 * * 0'      
 
 env:
   CLUSTER_NAME: akssea
@@ -13,32 +10,7 @@ env:
   IMAGE_NAME: azure-vote-front-github
 
 jobs:
-  codeql:
-    strategy:
-      fail-fast: false    
-    runs-on: ubuntu-latest
-    steps:
-    - name: "Checkout repository"
-      uses: actions/checkout@master
-      with:
-        fetch-depth: 2
-
-    - run: git checkout HEAD^2
-      if: ${{ github.event_name == 'pull_request' }}
-
-    - name: "Initialize codeql"
-      uses: github/codeql-action/init@v1
-      with:
-        languages: python
-
-    - name: "Auto build"
-      uses: github/codeql-action/autobuild@v1
-
-    - name: "Perform codeql analysis"
-      uses: github/codeql-action/analyze@v1
-
   build:
-    needs: [codeql]
     runs-on: ubuntu-latest
     steps:
     - name: "Checkout repository"

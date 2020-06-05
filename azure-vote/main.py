@@ -53,10 +53,6 @@ def index():
 
     if request.method == 'GET':
 
-        filename = request.GET.get('p')
-        if filename != ''
-            data = open(filename, 'rb').read()
-
         # Get current values
         vote1 = r.get(button1).decode('utf-8')
         vote2 = r.get(button2).decode('utf-8')            
