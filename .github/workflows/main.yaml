@@ -77,7 +77,7 @@ jobs:
         strategy: canary
         percentage: 50
 
-    - name: "If azure vote front deployment was not succeeded"
+    - name: "If azure deployment was not succeeded"
       if: failure()
       run: |
         kubectl rollout undo deployment/azure-vote-front --namespace ${{env.NAMESPACE}}
