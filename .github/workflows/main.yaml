@@ -67,6 +67,8 @@ jobs:
           ${{secrets.REGISTRY_URL}}/${{env.IMAGE_NAME}}:${{ github.sha }}
         imagepullsecrets: |
           acr-secret
+        strategy: canary
+        percentage: 50       
 
     - name: "If the deployment was not succeeded"
       if: failure()
