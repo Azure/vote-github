@@ -23,16 +23,19 @@ jobs:
       with:
         fetch-depth: 2
 
-      - name: "Initialize codeql"
-        uses: github/codeql-action/init@v1
-        with:
-          languages: python
+    - run: git checkout HEAD^2
+      if: ${{ github.event_name == 'pull_request' }}
 
-      - name: "Auto build"
-        uses: github/codeql-action/autobuild@v1
+    - name: "Initialize codeql"
+      uses: github/codeql-action/init@v1
+      with:
+        languages: python
 
-      - name: "Perform codeql analysis"
-        uses: github/codeql-action/analyze@v1
+    - name: "Auto build"
+      uses: github/codeql-action/autobuild@v1
+
+    - name: "Perform codeql analysis"
+      uses: github/codeql-action/analyze@v1
 
   build:
     needs: [codeql]
