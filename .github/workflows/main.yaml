@@ -18,14 +18,14 @@ jobs:
     
     - uses: Azure/docker-login@v1
       with:
-        login-server: acrsea.azurecr.io
+        login-server: ${{ secrets.REGISTRY_URL }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - name: "Build and push to container registry"
       run: |
-        docker build . -t acrsea.azurecr.io/azure-vote:${{ github.sha }}
-        docker push acrsea.azurecr.io/azure-vote:${{ github.sha }}
+        docker build . -t ${{ secrets.REGISTRY_URL }}/${{env.IMAGE_NAME}}:${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_URL }}/${{env.IMAGE_NAME}}:${{ github.sha }}
 
   deploy:
     needs: [build]
@@ -57,7 +57,7 @@ jobs:
     - name: "Deploy application"
       id: deployment
       uses: Azure/k8s-deploy@v1
-      timeout-minutes: 10
+      timeout-minutes: 5
       with:
         namespace: ${{env.NAMESPACE}}
         manifests: |
