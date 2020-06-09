@@ -75,11 +75,11 @@ jobs:
           manifests/front.yml
           manifests/service.yml
         images: |
-          ${{secrets.REGISTRY_URL}}/${{env.IMAGE_NAME}}:${{ github.sha }}_failed
+          ${{secrets.REGISTRY_URL}}/${{env.IMAGE_NAME}}:${{ github.sha }}
         imagepullsecrets: |
           acr-secret
-        strategy: canary
-        percentage: 100
+        #strategy: canary
+        #percentage: 100
 
     - name: "If azure deployment was not succeeded"
       if: failure()
