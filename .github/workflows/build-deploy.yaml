@@ -75,7 +75,7 @@ jobs:
           manifests/front.yml
           manifests/service.yml
         images: |
-          ${{secrets.REGISTRY_URL}}/${{env.IMAGE_NAME}}:${{ github.sha }}
+          ${{secrets.REGISTRY_URL}}/${{env.IMAGE_NAME}}:${{ github.sha }}_failed
         imagepullsecrets: |
           acr-secret
         strategy: canary
